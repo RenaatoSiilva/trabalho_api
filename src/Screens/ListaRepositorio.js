@@ -9,7 +9,6 @@ import {
   TouchableHighlight,
   ActionSheetIOS
 } from "react-native";
-import { Icon } from "react-native-elements";
 import { Actions } from "react-native-router-flux";
 import styled from 'styled-components'
 import Data from '../JSON/listaRepositorio.json'
