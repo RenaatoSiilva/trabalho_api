@@ -1,19 +1,29 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { Router, Scene } from "react-native-router-flux";
+import DadosRepositorio from "./src/Screens/DadosRepositorio";
+import ListaRepositorio from "./src/Screens/ListaRepositorio";
 
-export default function App() {
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-  );
-}
+    <Provider store={store}>
+      <Router>
+        <Scene key="root">
+          <Scene
+            key="dadosrepositorio"
+            component={DadosRepositorio}
+            title="Dados do Repositorio"
+            initial
+          />
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+          <Scene
+            key="listarepositorio"
+            component={ListaRepositorio}
+            title="Listagem de Repositorio"
+          />
+        </Scene>
+      </Router>
+    </Provider>
+  );
+};
+
+export default App;
