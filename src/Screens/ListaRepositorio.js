@@ -15,6 +15,10 @@ import Data from '../JSON/listaRepositorio.json'
 
 class ListaRepositorio extends Component {
 
+    constructor(props) {
+        super(props);
+    }
+
     componentDidMount() {
 
         var _this = this;
