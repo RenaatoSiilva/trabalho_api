@@ -1,0 +1,10 @@
+{
+    "repositorios": [
+        {
+            "id": 1,
+            "nome": "Repositorio do Fulano",
+            "descricao": "Descrição Tal",
+            "estrelas": 3
+        }
+    ]
+}

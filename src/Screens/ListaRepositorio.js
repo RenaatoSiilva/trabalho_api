@@ -12,8 +12,29 @@ import {
 import { Icon } from "react-native-elements";
 import { Actions } from "react-native-router-flux";
 import styled from 'styled-components'
+import Data from '../JSON/listaRepositorio.json'
 
 class ListaRepositorio extends Component {
+
+    componentDidMount() {
+
+        var _this = this;
+        //Check if any data exist
+        AsyncStorage.getItem('data', (err, data) => {
+          //if it doesn't exist, extract from json file
+          //save the initial data in Async
+          if (data === null) {
+            AsyncStorage.setItem('data', JSON.stringify(Data.repositorios));
+            _this.props.listarRepositorio();
+          } else {
+            this.props.listarRepositorio(); //call our action
+          }
+        });
+    
+      }
+    
+
+
   render() {
     if (this.props.loading) {
       return (
@@ -24,7 +45,7 @@ class ListaRepositorio extends Component {
     } else {
       return (
         <StyledView style={{ flex: 1 }}>
-          <StyledTextTitle>Listadem de Repositorios</StyledTextTitle>
+          <StyledTextTitle>Listagem de Repositorios</StyledTextTitle>
 
           <FlatList
             ref="listRef"
