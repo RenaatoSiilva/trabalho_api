@@ -28,8 +28,8 @@ const SecondRoute = () => (
 );
 
 const ThirdRoute = () => (
-    <View style={[styles.scene, { backgroundColor: "#fff" }]} />
-  );
+  <View style={[styles.scene, { backgroundColor: "#fff" }]} />
+);
 
 class DadosRepositorio extends Component {
   state = {
@@ -39,30 +39,30 @@ class DadosRepositorio extends Component {
       { key: "first", title: "ISSUES" },
       { key: "second", title: "PULL REQUESTS" },
       { key: "third", title: "COMMITS" }
-
     ]
   };
 
   render() {
     return (
+      <React.Fragment>
 
-        
+        <StyledTextTitle>
+            {this.props.name}
+        </StyledTextTitle>
 
-      <TabView
-        navigationState={this.state}
-        renderScene={SceneMap({
-          first: FirstRoute,
-          second: SecondRoute,
-          third: ThirdRoute,
-        })}
-        onIndexChange={index => this.setState({ index })}
-        initialLayout={{ width: Dimensions.get('window').width }}
-      />
-      
+        <TabView
+          navigationState={this.state}
+          renderScene={SceneMap({
+            first: FirstRoute,
+            second: SecondRoute,
+            third: ThirdRoute
+          })}
+          onIndexChange={index => this.setState({ index })}
+          initialLayout={{ width: Dimensions.get("window").width }}
+        />
+      </React.Fragment>
     );
   }
-
-
 
   componentDidMount() {
     getRepoFromUser("RenaatoSiilva").then(resp => {
@@ -75,10 +75,11 @@ class DadosRepositorio extends Component {
 export default DadosRepositorio;
 
 const styles = StyleSheet.create({
-    scene: {
-      flex: 1,
-    },
-  });
+  scene: {
+    flex: 1,
+    backgroundColor: "#fff"
+  }
+});
 
 const StyledView = styled.View`
   background-color: #fff;
