@@ -9,7 +9,7 @@ const instance = () => {
   return axios.create({
     baseURL: 'https://api.github.com',
     headers: {
-      'Authorization' : 'token 81eecac2d1011bcf6c3923e580b4e96db24ce7f9'
+      'Authorization' : 'token 6c71786999255509d10a1c29c2c8858cbddec005 '
     }
   })
 }

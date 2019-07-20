@@ -47,7 +47,7 @@ class DadosRepositorio extends Component {
       <React.Fragment>
 
         <StyledTextTitle>
-            {this.props.name}
+            {this.props.item.name}
         </StyledTextTitle>
 
         <TabView
@@ -67,6 +67,7 @@ class DadosRepositorio extends Component {
   componentDidMount() {
     getRepoFromUser("RenaatoSiilva").then(resp => {
       console.log(JSON.stringify(resp));
+      
       this.setState({ dadosRepositories: resp.data });
     });
   }
