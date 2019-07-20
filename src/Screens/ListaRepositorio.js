@@ -8,7 +8,8 @@ import {
   ActivityIndicator,
   TouchableHighlight,
   ActionSheetIOS,
-  Image
+  Image,
+  TouchableOpacity
 } from "react-native";
 import { Actions } from "react-native-router-flux";
 import styled from "styled-components";
@@ -43,10 +44,10 @@ class ListaRepositorio extends Component {
 
   renderItem({ item, index }) {
     return (
+        <TouchableOpacity onPress={() => Actions.dadosrepositorio({item})}>
       <StyledViewRow>
         <StyledTextContent>
-          <Image
-            style={{ width: 20, height: 30 }}
+          <StyledImage
             source={{ uri: item.owner.avatar_url }}
           />
         </StyledTextContent>
@@ -57,6 +58,7 @@ class ListaRepositorio extends Component {
 
         <StyledTextContent>{item.stargazers_count}</StyledTextContent>
       </StyledViewRow>
+      </TouchableOpacity>
     );
   }
 }
@@ -74,6 +76,14 @@ const StyledTextTitle = styled(Text)`
   margin: 10px;
   font-weight: bold;
 `;
+
+const StyledImage = styled(Image)`
+  width: 50px;
+  height: 100px;
+  margin: 2px;
+  border-radius: 7px;
+`;
+
 const StyledTextContent = styled(Text)`
   text-align: justify;
 
@@ -89,7 +99,7 @@ const StyledViewRow = styled.View`
   box-shadow: 0px 6px 16px;
   border: 1px solid #000;
   height: 200px;
-  width: 312px;
+  width: 300px;
   margin: 5px;
 `;
 
