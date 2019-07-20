@@ -4,7 +4,7 @@ const __API__ = 'https://api.github.com'
 const instance = axios.create({
   baseURL: __API__,
   headers: {
-    'Authorization' : 'token dc6d573bb124d5c4f61baeaba4a434668aca2502'
+    'Authorization' : 'token 06d2b2###a8ebe8825d####f8c84040ff32###50eccdcbf9e3 '
   }
 })
 export default instance
