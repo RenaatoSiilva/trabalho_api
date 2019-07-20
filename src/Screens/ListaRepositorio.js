@@ -13,11 +13,12 @@ import { Actions } from "react-native-router-flux";
 import styled from "styled-components";
 import Data from "../JSON/listaRepositorio.json";
 import Icon from 'react-native-vector-icons/Ionicons'
-import { getReposUser } from "../../services/git";
+import { getReposUser, getRepoFromUser } from "../../services/git";
 
 class ListaRepositorio extends Component {
   state = {
-    lstRepositories: []
+    lstRepositories: [],
+    textSearch: ""
   };
 
   componentDidMount() {
@@ -26,6 +27,27 @@ class ListaRepositorio extends Component {
       this.setState({ lstRepositories: resp.data });
     });
   }
+
+  changeSearch = text => {
+    this.setState({textSearch: text});
+  }
+
+  searchFilterFunction = () => {
+    if(this.state.textSearch.length == 0){
+        return;
+    }
+    if(this.state.textSearch.indexOf('/') > -1){
+      getRepoFromUser(this.state.textSearch).then(resp => {
+        console.log(JSON.stringify(resp));
+        this.setState({ lstRepositories: [resp.data] });
+      });
+    }else{
+      getReposUser(this.state.textSearch).then(resp => {
+        console.log(JSON.stringify(resp));
+        this.setState({ lstRepositories: resp.data });
+      });
+    }
+  };
 
   render() {
     return (
@@ -45,7 +67,12 @@ class ListaRepositorio extends Component {
             borderWidth: 1,
             borderRadius: 4
           }}>
-            <TextInput style={{ paddingHorizontal: 5 }} placeholder='usuário/repositório' />
+            <TextInput style={{ paddingHorizontal: 5 }} 
+                onChangeText={text => this.changeSearch(text)}                
+                returnKeyType='search'
+                autoFocus={true}
+                onSubmitEditing={this.searchFilterFunction}
+                placeholder='usuário/repositório' />
           </View>
         </View>
 
