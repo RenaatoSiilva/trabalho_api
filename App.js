@@ -6,23 +6,23 @@ import { Provider } from 'react-redux';
 
 const App = () => {
   return (
-      <Router>
-        <Scene key="root">
-          
-          <Scene
-            key="listarepositorio"
-            component={ListaRepositorio}
-            title="Listagem de Repositorio"
-          />
+    <Router>
+      <Scene key="root">
 
-    <Scene
-      key="dadosrepositorio"
-      component={DadosRepositorio}
-      title="Dados de Repositorio"
-    />
-        </Scene>
+        <Scene
+          key="listarepositorio"
+          component={ListaRepositorio}
+          hideNavBar={true}
+        />
 
-      </Router>
+        <Scene
+          key="dadosrepositorio"
+          component={DadosRepositorio}
+          title="Dados de Repositorio"
+        />
+      </Scene>
+
+    </Router>
   );
 };
 
