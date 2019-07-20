@@ -22,7 +22,7 @@ class ListaRepositorio extends Component {
 
   componentDidMount() {
     getReposUser("RenaatoSiilva").then(resp => {
-      console.log(JSON.stringify(resp));
+      console.log(resp);
       this.setState({ lstRepositories: resp.data });
     });
   }
