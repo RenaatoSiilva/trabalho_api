@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
   Dimensions
 } from "react-native";
+import Icon from 'react-native-vector-icons/Ionicons'
 import { TabView, SceneMap } from "react-native-tab-view";
 
 import { Actions } from "react-native-router-flux";
@@ -46,9 +47,18 @@ class DadosRepositorio extends Component {
     return (
       <React.Fragment>
 
+        <StyledImage source={{ uri: this.props.item.owner.avatar_url }} />
+
+
         <StyledTextTitle>
             {this.props.item.name}
         </StyledTextTitle>
+
+        <View style={{ marginVertical: 16, flex: 0.25, flexDirection: 'row' }}>
+              <StyledTextContent style={{ flex: 1 }}>{this.props.item.full_name}</StyledTextContent>
+              <StyledTextContent>{this.props.item.stargazers_count}</StyledTextContent>
+              <Icon style={{ marginRight: 6 }} name='md-star' size={12} />
+            </View>
 
         <TabView
           navigationState={this.state}
@@ -94,21 +104,19 @@ const StyledTextTitle = styled(Text)`
   font-weight: bold;
 `;
 
-const StyledImage = styled(Image)`
-  width: 50px;
-  height: 100px;
-  margin: 2px;
-  border-radius: 7px;
-`;
-
 const StyledTextContent = styled(Text)`
-  text-align: justify;
-
-  font-size: 14;
-  margin-top: 5px;
-  font-weight: bold;
+  font-family: Roboto;
+  font-size: 16;
   color: #000;
 `;
+
+const StyledImage = styled(Image)`
+  width: 55px;
+  height: 55px;
+  margin-left: 6px;
+  border-radius: 26px;
+`;
+
 
 const StyledViewRow = styled.View`
   background-color: #fff;

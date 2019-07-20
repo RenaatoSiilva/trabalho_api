@@ -13,12 +13,13 @@ const App = () => {
           key="listarepositorio"
           component={ListaRepositorio}
           hideNavBar={true}
+          title="BUSCAR REPOSITÓRIOS"
         />
 
         <Scene
           key="dadosrepositorio"
           component={DadosRepositorio}
-          title="Dados de Repositorio"
+          title="USUÁRIO"
         />
       </Scene>
 
