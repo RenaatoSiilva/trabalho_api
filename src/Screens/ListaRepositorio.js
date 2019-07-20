@@ -7,120 +7,93 @@ import {
   FlatList,
   ActivityIndicator,
   TouchableHighlight,
-  ActionSheetIOS
+  ActionSheetIOS,
+  Image
 } from "react-native";
 import { Actions } from "react-native-router-flux";
-import styled from 'styled-components'
-import Data from '../JSON/listaRepositorio.json'
+import styled from "styled-components";
+import Data from "../JSON/listaRepositorio.json";
+import { getReposUser } from "../../services/git";
 
 class ListaRepositorio extends Component {
-
-    constructor(props) {
-        super(props);
-    }
-
-    componentDidMount() {
-
-        var _this = this;
-        //Check if any data exist
-        AsyncStorage.getItem('data', (err, data) => {
-          //if it doesn't exist, extract from json file
-          //save the initial data in Async
-          if (data === null) {
-            AsyncStorage.setItem('data', JSON.stringify(Data.repositorios));
-            _this.props.listarRepositorio();
-          } else {
-            this.props.listarRepositorio(); //call our action
-          }
-        });
-    
-      }
-    
-
-
-  render() {
-    if (this.props.loading) {
-      return (
-        <StyledViewActivityIndicator style={{ flex: 1 }}>
-          <ActivityIndicator animating={true} />
-        </StyledViewActivityIndicator>
-      );
-    } else {
-      return (
-        <StyledView style={{ flex: 1 }}>
-          <StyledTextTitle>Listagem de Repositorios</StyledTextTitle>
-
-          <FlatList
-            ref="listRef"
-            // data={this.props.clientes}
-            // renderItem={this.mostrarClientes}
-            keyExtractor={(item, index) => index}
-          />
-        </StyledView>
-      );
-    }
-  }
-
-  openModal = () => {
-    this.setState({
-      isVisible: !this.state.isVisible
-    });
+  state = {
+    lstRepositories: []
   };
 
-
-  mostrarClientes({ item, index }) {
-    return (
-      <StyledViewRow>
-
-        <StyledTextContent>
-         Nome do Repositorio:  
-        </StyledTextContent>
-
-        <StyledTextContent>
-          Descrição: 
-        </StyledTextContent>
-
-        <StyledTextContent>
-          000: 
-        </StyledTextContent>
-        </StyledViewRow>
-    )
+  componentDidMount() {
+    getReposUser("RenaatoSiilva").then(resp => {
+      console.log(JSON.stringify(resp));
+      this.setState({ lstRepositories: resp.data });
+    });
   }
 
+  render() {
+    return (
+      <StyledView style={{ flex: 1 }}>
+        <StyledTextTitle>Listagem de Repositorios</StyledTextTitle>
+        <FlatList
+          ref="listRef"
+          data={this.state.lstRepositories}
+          renderItem={this.renderItem}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      </StyledView>
+    );
+  }
 
+  renderItem({ item, index }) {
+    return (
+      <StyledViewRow>
+        <StyledTextContent>
+          <Image
+            style={{ width: 20, height: 30 }}
+            source={{ uri: item.owner.avatar_url }}
+          />
+        </StyledTextContent>
+
+        <StyledTextContent>{item.name}</StyledTextContent>
+
+        <StyledTextContent>{item.description}</StyledTextContent>
+
+        <StyledTextContent>{item.stargazers_count}</StyledTextContent>
+      </StyledViewRow>
+    );
+  }
 }
 
 export default ListaRepositorio;
 
-
 const StyledView = styled.View`
-background-color: #fff;
-align-items: center;
-`
+  background-color: #fff;
+  align-items: center;
+`;
 
 const StyledTextTitle = styled(Text)`
-    text-align: center;
-    color: #fff;
-    font-size: 30;
-    margin: 10px;
-    font-weight: bold;
-`
+  color: #fff;
+  font-size: 30;
+  margin: 10px;
+  font-weight: bold;
+`;
 const StyledTextContent = styled(Text)`
-    font-size: 14;
-    margin-top: 5px;
-    font-weight: bold;
-`
+  text-align: justify;
+
+  font-size: 14;
+  margin-top: 5px;
+  font-weight: bold;
+  color: #000;
+`;
 
 const StyledViewRow = styled.View`
-background-color: #fff;
-align-items: center;
-padding: 10px;
-margin: 3px
-`
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0px 6px 16px;
+  border: 1px solid #000;
+  height: 200px;
+  width: 312px;
+  margin: 5px;
+`;
 
 const StyledViewActivityIndicator = styled.View`
-background-color: #f58300;
-align-items: center;
-`
-
-
+  background-color: #f58300;
+  align-items: center;
+`;
